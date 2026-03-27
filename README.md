@@ -80,3 +80,12 @@ The app auto-discovers `.md` files in `data/exercises/` when directory listings 
 For GitHub Pages:
 - Keep `data/exercises/index.json` up to date.
 - GitHub Pages does not expose folder listings, so the manifest is what loads your drills.
+
+## Update the manifest
+Run this locally after adding or removing exercise files:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\update-exercise-index.ps1
+```
+
+This rebuilds `data/exercises/index.json` from all `.md` files in `data/exercises/`.
