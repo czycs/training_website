@@ -1,7 +1,7 @@
 ---
 title: 1v1 Feld auffüllen
 age_group: U17
-complexity: 4
+complexity: 4
 intensity: 5
 players: 12
 gks: 2

@@ -2,7 +2,6 @@
 title: Torschuss Annahme freier Raum
 age_group: U12
 complexity: 4
-
 intensity: 7
 players: 6
 gks: 2

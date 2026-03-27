@@ -2,7 +2,6 @@
 title: Überzahl Seite drehen
 age_group: U12
 complexity: 4
-
 intensity: 5
 players: 10
 gks: 2

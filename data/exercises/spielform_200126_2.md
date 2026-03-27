@@ -2,7 +2,6 @@
 title: 2v2 Schleife
 age_group: U17, U12
 complexity: 4
-
 intensity: 6
 players: 12
 gks: 2

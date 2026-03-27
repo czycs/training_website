@@ -2,7 +2,6 @@
 title: Torschuss Warmup
 age_group: U15, U12
 complexity: 3
-
 intensity: 3
 players: 8
 gks: 1

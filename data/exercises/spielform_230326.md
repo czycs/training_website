@@ -1,7 +1,7 @@
 ---
 title: Spielform Tore in der Mitte
 age_group: U17
-complexity: 4
+complexity: 4
 intensity: 5
 players: 14
 gks: 2

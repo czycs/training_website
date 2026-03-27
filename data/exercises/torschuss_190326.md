@@ -2,7 +2,6 @@
 title: Torschuss 1v1 vermeiden
 age_group: U12
 complexity: 6
-
 intensity: 7
 players: 6
 gks: 2

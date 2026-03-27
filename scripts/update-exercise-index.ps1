@@ -20,3 +20,6 @@ $json = $files | ConvertTo-Json
 $json | Set-Content -Path $outputPath
 
 Write-Host "Updated $OutputFile with $($files.Count) exercise files."
+
+
+# powershell -ExecutionPolicy Bypass -File .\scripts\update-exercise-index.ps1
