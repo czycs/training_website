@@ -75,7 +75,8 @@ Notes:
 3. Reference the visual filename in `media_url` (example: `my-drill.gif`).
 4. Refresh the page.
 
-The app auto-discovers `.md` files in `data/exercises/` (when your local server exposes directory listings, such as `python -m http.server`).
+The app auto-discovers `.md` files in `data/exercises/` when directory listings are available locally.
 
-Optional fallback:
-- You can still keep `data/exercises/index.json` as a manual list for servers that do not allow directory listing.
+For GitHub Pages:
+- Keep `data/exercises/index.json` up to date.
+- GitHub Pages does not expose folder listings, so the manifest is what loads your drills.
