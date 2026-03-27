@@ -2,7 +2,8 @@
 title: Dreifacher 1v1 Torschuss 
 age_group: U12
 complexity: 7
-`r`nintensity: 7
+
+intensity: 7
 players: 6
 gks: 2
 tags: Torschuss, 1v1

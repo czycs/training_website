@@ -2,7 +2,8 @@
 title: 1v1 Feldwechsel Schleife
 age_group: U12
 complexity: 2
-`r`nintensity: 8
+
+intensity: 8
 players: 6
 gks: 0
 tags: 1v1

@@ -1,7 +1,8 @@
 ---
 title: 3v3 -> 6v6 Spielform
 age_group: U17, U12
-complexity: 4`r`nintensity: 5
+complexity: 4
+intensity: 5
 players: 12
 gks: 2
 tags: 3v3, 6v6, Spielform, doppelter 16er

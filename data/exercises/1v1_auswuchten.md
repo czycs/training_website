@@ -1,7 +1,8 @@
 ---
 title: 1v1 Auswuchten
 age_group: U12
-complexity: 2`r`nintensity: 5
+complexity: 2
+intensity: 5
 players: 6
 gks: 0
 tags: 1v1

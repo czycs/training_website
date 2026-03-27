@@ -2,7 +2,8 @@
 title: Dreifacher Torschuss 
 age_group: U12
 complexity: 4
-`r`nintensity: 7
+
+intensity: 7
 players: 6
 gks: 2
 tags: Torschuss

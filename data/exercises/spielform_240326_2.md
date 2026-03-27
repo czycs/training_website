@@ -2,7 +2,8 @@
 title: Überzahl ausspielen
 age_group: U12
 complexity: 4
-`r`nintensity: 5
+
+intensity: 5
 players: 10
 gks: 0
 tags: Spielform, Überzahl

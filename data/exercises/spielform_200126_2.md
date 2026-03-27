@@ -2,7 +2,8 @@
 title: 2v2 Schleife
 age_group: U17, U12
 complexity: 4
-`r`nintensity: 6
+
+intensity: 6
 players: 12
 gks: 2
 tags: 2v2, Spielform, doppelter 16er

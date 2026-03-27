@@ -1,7 +1,8 @@
 ---
 title: Torschuss Anschlussaktion 1v1 -> 2v2
 age_group: U15, U12
-complexity: 3`r`nintensity: 5
+complexity: 3
+intensity: 5
 players: 6
 gks: 2
 tags: Torschuss, 1v1, 2v2, doppelter 16er

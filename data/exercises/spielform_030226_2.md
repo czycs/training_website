@@ -2,7 +2,8 @@
 title: 2v2 mit Tiefenanspieler
 age_group: U12, U17
 complexity: 4
-`r`nintensity: 7
+
+intensity: 7
 players: 12
 gks: 0
 tags: Spielform, Überzahl, 2v2

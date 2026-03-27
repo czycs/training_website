@@ -421,7 +421,7 @@ function parseExerciseMarkdown(raw, sourceName) {
 }
 
 function splitFrontmatter(markdown) {
-  const normalized = markdown.replace(/\r\n/g, "\n");
+  const normalized = markdown.replace(/\r\n/g, "\n").replace(/`r`n/g, "\n");
   if (!normalized.startsWith("---\n")) {
     return { meta: {}, body: normalized };
   }
