@@ -33,6 +33,7 @@ const dom = {
   gksMin: document.querySelector("#gksMin"),
   gksMax: document.querySelector("#gksMax"),
   resultCount: document.querySelector("#resultCount"),
+  loadStatus: document.querySelector("#loadStatus"),
   exerciseGrid: document.querySelector("#exerciseGrid"),
   resetFilters: document.querySelector("#resetFilters"),
   modal: document.querySelector("#exerciseModal"),
@@ -52,16 +53,29 @@ async function bootstrap() {
 async function loadSeededExercises() {
   try {
     const files = await getExerciseFileList();
-    const all = await Promise.all(
+    const results = await Promise.allSettled(
       files.map(async (fileName) => {
         const res = await fetch(`${EXERCISE_DIR_PATH}${fileName}`);
+        if (!res.ok) {
+          throw new Error(`Failed to load ${fileName}: ${res.status}`);
+        }
         const raw = await res.text();
         return parseExerciseMarkdown(raw, fileName);
       })
     );
-    return all.filter(Boolean);
+    const exercises = results
+      .filter((result) => result.status === "fulfilled" && result.value)
+      .map((result) => result.value);
+    const failed = results.length - exercises.length;
+    if (dom.loadStatus) {
+      dom.loadStatus.textContent = failed > 0 ? `${exercises.length} drills loaded, ${failed} skipped` : `${exercises.length} drills loaded`;
+    }
+    return exercises;
   } catch (error) {
     console.error("Could not load seeded exercises.", error);
+    if (dom.loadStatus) {
+      dom.loadStatus.textContent = "Could not load drills";
+    }
     return [];
   }
 }

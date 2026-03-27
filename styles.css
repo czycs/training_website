@@ -221,6 +221,12 @@ input[type="number"] {
   font-size: 0.95rem;
 }
 
+.load-status {
+  margin: 0 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .exercise-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
