@@ -3,7 +3,7 @@ title: Überzahl Seite drehen
 age_group: U12
 complexity: 4
 intensity: 5
-players: 10
+players: 12
 gks: 2
 tags: Spielform, Überzahl
 media_type: image
