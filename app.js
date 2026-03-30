@@ -8,6 +8,7 @@ const state = {
   selectedAgeGroups: new Set(),
   selectedTags: new Set(),
   tagMatchMode: "any",
+  currentExerciseSlug: "",
   searchTerm: "",
   complexityMin: null,
   complexityMax: null,
@@ -48,6 +49,7 @@ async function bootstrap() {
   wireEvents();
   renderFilterChips();
   render();
+  syncExerciseFromUrl();
 }
 
 async function loadSeededExercises() {
@@ -184,12 +186,13 @@ function wireEvents() {
 
   dom.resetFilters.addEventListener("click", resetFilters);
 
-  dom.closeModal.addEventListener("click", () => dom.modal.close());
+  dom.closeModal.addEventListener("click", () => closeModalAndClearUrl());
   dom.modal.addEventListener("click", (event) => {
     if (event.target === dom.modal) {
-      dom.modal.close();
+      closeModalAndClearUrl();
     }
   });
+  window.addEventListener("hashchange", syncExerciseFromUrl);
 }
 
 function renderFilterChips() {
@@ -247,6 +250,17 @@ function renderCards(items) {
   items.forEach((item) => {
     const card = document.createElement("article");
     card.className = "card";
+    card.id = item.slug;
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open details for ${item.title}`);
+    card.addEventListener("click", () => openModal(item));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openModal(item);
+      }
+    });
 
     const media = renderMedia(item, "card-media");
     const body = document.createElement("div");
@@ -258,16 +272,15 @@ function renderCards(items) {
       <p class="meta-line">Intensity: ${item.intensity}/10</p>
       <p class="meta-line">Players: ${item.players} | GKs: ${item.gks}</p>
       <div class="tag-row">${item.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
-      <button class="open-btn" type="button">Open Details</button>
     `;
-
-    body.querySelector(".open-btn").addEventListener("click", () => openModal(item));
     card.append(media, body);
     dom.exerciseGrid.appendChild(card);
   });
 }
 
 function openModal(item) {
+  state.currentExerciseSlug = item.slug;
+  updateUrlForExercise(item.slug);
   const media = renderMedia(item, "detail-media");
   dom.modalContent.innerHTML = "";
   dom.modalContent.appendChild(media);
@@ -283,7 +296,64 @@ function openModal(item) {
     <div class="markdown">${simpleMarkdownToHtml(item.description)}</div>
   `;
   dom.modalContent.appendChild(details);
-  dom.modal.showModal();
+  if (!dom.modal.open) {
+    dom.modal.showModal();
+  }
+}
+
+function closeModalAndClearUrl() {
+  state.currentExerciseSlug = "";
+  if (dom.modal.open) {
+    dom.modal.close();
+  }
+  clearExerciseUrl();
+}
+
+function syncExerciseFromUrl() {
+  const slug = getExerciseSlugFromUrl();
+  if (!slug) {
+    state.currentExerciseSlug = "";
+    if (dom.modal.open) {
+      dom.modal.close();
+    }
+    return;
+  }
+
+  const exercise = state.exercises.find((item) => item.slug === slug);
+  if (!exercise) {
+    return;
+  }
+
+  if (state.currentExerciseSlug !== exercise.slug || !dom.modal.open) {
+    openModal(exercise);
+  }
+
+  scrollCardIntoView(exercise.slug);
+}
+
+function getExerciseSlugFromUrl() {
+  return window.location.hash.replace(/^#/, "");
+}
+
+function updateUrlForExercise(slug) {
+  if (window.location.hash === `#${slug}`) {
+    return;
+  }
+  history.pushState(null, "", `#${slug}`);
+}
+
+function clearExerciseUrl() {
+  if (!window.location.hash) {
+    return;
+  }
+  history.pushState(null, "", `${window.location.pathname}${window.location.search}`);
+}
+
+function scrollCardIntoView(slug) {
+  const card = document.getElementById(slug);
+  if (card) {
+    card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
 }
 
 function renderMedia(item, className) {
@@ -406,6 +476,7 @@ function parseExerciseMarkdown(raw, sourceName) {
 
   return {
     id: slugify(`${sourceName}-${meta.title}`),
+    slug: encodeURIComponent(String(meta.title).trim()),
     title: String(meta.title).trim(),
     ageGroups: ageGroups.length ? ageGroups : ["Any"],
     complexity,

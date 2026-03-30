@@ -117,6 +117,10 @@ h1 {
 
 .results {
   padding: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 1rem;
 }
 
 h2,
@@ -240,6 +244,21 @@ input[type="number"] {
   overflow: hidden;
   display: grid;
   grid-template-rows: 150px 1fr;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(16, 35, 30, 0.14);
+  border-color: color-mix(in hsl, var(--accent) 40%, var(--line) 60%);
+}
+
+.card:focus-visible {
+  outline: 2px solid color-mix(in hsl, var(--accent) 55%, white 45%);
+  outline-offset: 3px;
 }
 
 .card-media img,
@@ -280,17 +299,6 @@ input[type="number"] {
   border: 1px solid #cfe3d4;
   padding: 0.2rem 0.52rem;
   border-radius: 999px;
-}
-
-.open-btn {
-  margin-top: 0.2rem;
-  justify-self: start;
-  font-size: 0.86rem;
-  padding: 0.38rem 0.62rem;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  cursor: pointer;
 }
 
 .empty-state {
@@ -377,5 +385,9 @@ input[type="number"] {
 
   .filters {
     position: static;
+  }
+
+  .results {
+    max-height: none;
   }
 }

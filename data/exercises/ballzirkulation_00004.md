@@ -1,5 +1,5 @@
 ---
-title: Ballzirkulation 3 TWs
+title: Ballzirkulation mit Spieleröffnung
 age_group: U19
 complexity: 6
 intensity: 5
