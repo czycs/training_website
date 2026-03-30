@@ -330,16 +330,26 @@ input[type="number"] {
 
 .modal-close {
   position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  width: 2rem;
-  height: 2rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+  width: 2.75rem;
+  height: 2.75rem;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background: #eff4ef;
-  font-size: 1.35rem;
+  background: rgba(239, 244, 239, 0.96);
+  box-shadow: 0 8px 20px rgba(16, 35, 30, 0.18);
+  font-size: 1.6rem;
+  font-weight: 700;
   line-height: 1;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  background: #ffffff;
+  outline: 2px solid color-mix(in hsl, var(--accent) 45%, white 55%);
+  outline-offset: 2px;
 }
 
 .detail-media img,
@@ -391,11 +401,11 @@ input[type="number"] {
   }
 
   .results {
-    max-height: 100svh;
-    min-height: 100svh;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-padding-top: 0.5rem;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+    scroll-padding-top: 0;
   }
 
   .exercise-grid {
@@ -404,6 +414,6 @@ input[type="number"] {
 
   .card {
     scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
   }
 }
