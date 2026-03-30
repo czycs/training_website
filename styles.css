@@ -248,7 +248,7 @@ input[type="number"] {
   background: var(--surface-strong);
   border: 1px solid var(--line);
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible;
   display: grid;
   grid-template-rows: auto 1fr;
   cursor: pointer;
@@ -269,24 +269,39 @@ input[type="number"] {
 }
 
 .card-media {
+  grid-row: 1;
   display: grid;
   place-items: center;
   padding: 0;
   background: transparent;
   min-height: 13rem;
+  max-height: 18rem;
+  overflow: hidden;
 }
 
 .card-media img,
 .card-media video {
   width: 100%;
-  height: auto;
-  max-height: 26rem;
-  object-fit: contain;
   display: block;
   margin: 0;
 }
 
+.card-media img {
+  height: 100%;
+  min-height: 13rem;
+  max-height: 18rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-media video {
+  height: auto;
+  max-height: 26rem;
+  object-fit: contain;
+}
+
 .card-body {
+  grid-row: 2;
   padding: 0.6rem 0.75rem 0.75rem;
   display: grid;
   gap: 0.3rem;
@@ -309,15 +324,23 @@ input[type="number"] {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .tag {
   display: inline-block;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
   font-size: 0.73rem;
   background: #eaf3ec;
   border: 1px solid #cfe3d4;
   padding: 0.2rem 0.52rem;
   border-radius: 999px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .empty-state {
@@ -454,5 +477,6 @@ input[type="number"] {
   .card-media {
     padding: 0;
     min-height: clamp(15rem, 38svh, 24rem);
+    max-height: clamp(15rem, 38svh, 24rem);
   }
 }
