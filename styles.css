@@ -406,15 +406,28 @@ input[type="number"] {
   }
 
   .results {
+    display: grid;
+    grid-template-rows: auto 1fr;
     max-height: 100svh;
     min-height: 100svh;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-padding-top: 0.5rem;
+    overflow: hidden;
+    scroll-snap-type: none;
+    scroll-padding-top: 0;
+  }
+
+  .results-top {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
   }
 
   .exercise-grid {
     grid-template-columns: 1fr;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0.35rem;
+    padding-bottom: 1rem;
   }
 
   .card {
