@@ -406,11 +406,11 @@ input[type="number"] {
   }
 
   .results {
-    max-height: none;
-    min-height: 0;
-    overflow: visible;
-    scroll-snap-type: none;
-    scroll-padding-top: 0;
+    max-height: 100svh;
+    min-height: 100svh;
+    overflow-y: auto;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 0.5rem;
   }
 
   .exercise-grid {
@@ -419,6 +419,6 @@ input[type="number"] {
 
   .card {
     scroll-snap-align: start;
-    scroll-snap-stop: normal;
+    scroll-snap-stop: always;
   }
 }
