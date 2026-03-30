@@ -241,6 +241,7 @@ input[type="number"] {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
   gap: 0.8rem;
+  min-height: 0;
 }
 
 .card {
@@ -422,6 +423,8 @@ input[type="number"] {
 
   .exercise-grid {
     grid-template-columns: 1fr;
+    min-height: 0;
+    align-content: start;
     overflow-y: auto;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
