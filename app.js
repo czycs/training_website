@@ -45,7 +45,7 @@ const dom = {
 bootstrap();
 
 async function bootstrap() {
-  state.exercises = dedupeById(await loadSeededExercises());
+  state.exercises = ensureUniqueExerciseSlugs(dedupeById(await loadSeededExercises()));
   wireEvents();
   renderFilterChips();
   render();
@@ -489,6 +489,21 @@ function parseExerciseMarkdown(raw, sourceName) {
     loopOnHome: toBoolean(meta.loop_on_home || meta.autoplay_loop),
     description: body.trim(),
   };
+}
+
+function ensureUniqueExerciseSlugs(exercises) {
+  const seenCounts = new Map();
+
+  return exercises.map((exercise) => {
+    const baseSlug = exercise.slug || encodeURIComponent(exercise.title.trim());
+    const count = (seenCounts.get(baseSlug) || 0) + 1;
+    seenCounts.set(baseSlug, count);
+
+    return {
+      ...exercise,
+      slug: count === 1 ? baseSlug : `${baseSlug}-${count}`,
+    };
+  });
 }
 
 function splitFrontmatter(markdown) {
