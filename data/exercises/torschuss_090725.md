@@ -14,12 +14,14 @@ media_url: torschuss_090725.mp4
 [torschuss_090725.png]
 
 ## Ablauf
+Überzahl Situationen 5s shotclock
 
 
 
 ## Coaching points
+- maximale Breite und Tiefe nutzen
 - Höchstmögliches Tempo 
-- enge Ballführung 
+- Überzahl ausnutzen
 - Verteidigen bis Ball im Tor (Ende)
 
 

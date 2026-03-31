@@ -14,13 +14,12 @@ media_url: spielform_230226.mp4
 [spielform_230226.png]
 
 ## Ablauf
-
+Durchgängig gepsielt fehlt wird alle 20s bis zum 4v4 aufgefüllt, dann werden alle 20s wieder weniger bis zum 1v1 
 
 
 
 ## Coaching points
-- Höchstmögliches Tempo 
-- enge Ballführung 
+- maximale Breite und Tiefe im Ballbesitz
 - Verteidigen bis Ball im Tor (Ende)
 
 

@@ -19,5 +19,5 @@ media_url: torschuss_120226.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
+- Überzahl durch maximale Tiefe Breite ausnutzen
 - Verteidigen bis Ball im Tor (Ende)

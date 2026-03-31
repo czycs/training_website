@@ -15,10 +15,14 @@ media_url: spielform_300326.mp4
 
 
 ## Ablauf
-
+ASZ erst im gegnerischen Sechzener
+5s shotclock in Überzahl Situationen
+mit Abseits
 
 
 ## Coaching points
 - maximale Intensität gegen den Ball
 - einfacher Fußball, Überzahl ausspielen (1-2 Kontakte -> Pass)
-- Dribblings vermeiden
+- Dribblings in Überzahlsituationen vermeiden
+- maximale Breite und Tiefe
+

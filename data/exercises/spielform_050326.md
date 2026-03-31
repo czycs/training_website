@@ -15,7 +15,7 @@ media_url: spielform_050326.mp4
 
 
 ## Ablauf
-5v5: Mannschaft Ballbesitzt die zuerst jeder Spieler min. ein Ballkontakt hatte und zuerst geschossen hat
+5v5: Die Mannschaft die zuerst jeden Spieler angespielt und zuerst geschossen hat, hat Ballbesitz
 
 
 

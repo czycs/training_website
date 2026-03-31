@@ -16,6 +16,6 @@ media_url: torschuss_120326.mp4
 
 ## Ablauf
 Torschuss nur in der Abschlusszone
-
+Wettkampf Rot gegen Blau: Wer schießt mehr Tor?
 ## Coaching points
 - maximales Tempo

@@ -20,7 +20,7 @@ media_url: spielform_070725.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
+- einfacher Fußball
 - Verteidigen bis Ball im Tor (Ende)
 
 

@@ -16,9 +16,14 @@ media_url: spielform_240326_2.mp4
 
 ## Ablauf
 
+Rot darf erst aufs Tor schießen wenn jeder Spieler am Ball gewesen ist
+Erobert Blau den Ball dürfen sie direkt abschließen
+
 
 
 ## Coaching points
 - maximale Intensität gegen den Ball
 - einfacher Fußball, Überzahl ausspielen (1-2 Kontakte -> Pass)
-- Dribblings vermeiden
+- schnell Seite drehen 
+- Raumnutzen 
+- Überzahl ausnutzen

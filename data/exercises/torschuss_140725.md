@@ -20,8 +20,8 @@ media_url: torschuss_140725.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
-- Verteidigen bis Ball im Tor (Ende)
+- Ballfern aktiv abkippen
+- Ballnah hoch schieben
 
 
 

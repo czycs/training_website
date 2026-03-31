@@ -8,6 +8,7 @@ This project is a visual exercise library for soccer coaches.
 - Filters by:
   - Age group tags
   - Complexity
+  - Date
   - Custom tags
   - Number of players
   - Number of goalkeepers
@@ -58,6 +59,8 @@ Notes:
 - `age_group` and `tags` are comma-separated lists.
 - `complexity` is a number from `1` to `10`.
 - `intensity` is a number from `1` to `10`.
+- Exercise dates are read from the markdown filename when it ends like `_050326.md` (`DDMMYY`).
+- If a filename does not end in that pattern, the exercise date defaults to `01.07.25`.
 - `media_type` can be `image` or `video`.
 - Store media files locally in `data/visual/`.
 - `media_url` should point to a local file in that folder (for example `drill-1.gif` or `session-a.mp4`).

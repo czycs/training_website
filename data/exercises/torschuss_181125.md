@@ -14,7 +14,7 @@ media_url: torschuss_181125.mp4
 [torschuss_181125.png]
 
 ## Ablauf
-
+ Spiel über 3. Mann 
 
 
 

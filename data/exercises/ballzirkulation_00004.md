@@ -20,8 +20,8 @@ media_url: spielform_050226.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
-- Verteidigen bis Ball im Tor (Ende)
+- Ballfern aktiv abkippen 
+- Ballnah aktiv hoch schieben
 
 
 

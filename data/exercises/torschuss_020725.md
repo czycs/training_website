@@ -1,5 +1,5 @@
 ---
-title: Torschuss Anschlussaktion
+title: einfacher Torschuss + 1 Anschlussaktion
 age_group: U15
 complexity: 4
 intensity: 6
@@ -22,6 +22,7 @@ media_url: torschuss_020725.mp4
 - Höchstmögliches Tempo 
 - enge Ballführung 
 - Verteidigen bis Ball im Tor (Ende)
+- Handlungsschnelligkeit
 
 
 

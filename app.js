@@ -2,6 +2,7 @@ const EXERCISE_DIR_PATH = "./data/exercises/";
 const DATA_INDEX_PATH = `${EXERCISE_DIR_PATH}index.json`;
 const VISUAL_DIR_PATH = "./data/visual/";
 const DEFAULT_VISUAL_PATH = `${VISUAL_DIR_PATH}placeholder.svg`;
+const DEFAULT_EXERCISE_DATE_ISO = "2025-07-01";
 
 const state = {
   exercises: [],
@@ -14,6 +15,8 @@ const state = {
   complexityMax: null,
   intensityMin: null,
   intensityMax: null,
+  dateMin: "",
+  dateMax: "",
   playersMin: null,
   playersMax: null,
   gksMin: null,
@@ -27,6 +30,8 @@ const dom = {
   complexityMax: document.querySelector("#complexityMax"),
   intensityMin: document.querySelector("#intensityMin"),
   intensityMax: document.querySelector("#intensityMax"),
+  dateMin: document.querySelector("#dateMin"),
+  dateMax: document.querySelector("#dateMax"),
   tagMatchToggle: document.querySelector("#tagMatchToggle"),
   tagFilters: document.querySelector("#tagFilters"),
   playersMin: document.querySelector("#playersMin"),
@@ -163,6 +168,16 @@ function wireEvents() {
     render();
   });
 
+  dom.dateMin.addEventListener("input", (event) => {
+    state.dateMin = normalizeDateInput(event.target.value);
+    render();
+  });
+
+  dom.dateMax.addEventListener("input", (event) => {
+    state.dateMax = normalizeDateInput(event.target.value);
+    render();
+  });
+
   dom.playersMax.addEventListener("input", (event) => {
     state.playersMax = toNumOrNull(event.target.value);
     render();
@@ -267,6 +282,7 @@ function renderCards(items) {
     body.className = "card-body";
     body.innerHTML = `
       <h4>${escapeHtml(item.title)}</h4>
+      <p class="meta-line">Date: ${item.displayDate}</p>
       <p class="meta-line">Age: ${escapeHtml(item.ageGroups.join(", ") || "Any")}</p>
       <p class="meta-line">Complexity: ${item.complexity}/10</p>
       <p class="meta-line">Intensity: ${item.intensity}/10</p>
@@ -288,6 +304,7 @@ function openModal(item) {
   const details = document.createElement("section");
   details.innerHTML = `
     <h2>${escapeHtml(item.title)}</h2>
+    <p class="meta-line"><strong>Date:</strong> ${item.displayDate}</p>
     <p class="meta-line"><strong>Age Group:</strong> ${escapeHtml(item.ageGroups.join(", ") || "Any")}</p>
     <p class="meta-line"><strong>Complexity:</strong> ${item.complexity}/10</p>
     <p class="meta-line"><strong>Intensity:</strong> ${item.intensity}/10</p>
@@ -407,6 +424,13 @@ function matchesFilters(item) {
     return false;
   }
 
+  if (state.dateMin && item.date < state.dateMin) {
+    return false;
+  }
+  if (state.dateMax && item.date > state.dateMax) {
+    return false;
+  }
+
   if (state.selectedTags.size > 0) {
     const matchesTags =
       state.tagMatchMode === "all"
@@ -441,6 +465,8 @@ function resetFilters() {
   state.complexityMax = null;
   state.intensityMin = null;
   state.intensityMax = null;
+  state.dateMin = "";
+  state.dateMax = "";
   state.playersMin = null;
   state.playersMax = null;
   state.gksMin = null;
@@ -452,6 +478,8 @@ function resetFilters() {
   dom.complexityMax.value = "";
   dom.intensityMin.value = "";
   dom.intensityMax.value = "";
+  dom.dateMin.value = "";
+  dom.dateMax.value = "";
   dom.playersMin.value = "";
   dom.playersMax.value = "";
   dom.gksMin.value = "";
@@ -473,6 +501,7 @@ function parseExerciseMarkdown(raw, sourceName) {
   const intensity = clampComplexity(meta.intensity) ?? 5;
   const players = Number.parseInt(meta.players, 10);
   const gks = Number.parseInt(meta.gks || meta.goalkeepers || 0, 10);
+  const parsedDate = parseExerciseDateFromSourceName(sourceName);
 
   return {
     id: slugify(`${sourceName}-${meta.title}`),
@@ -482,6 +511,8 @@ function parseExerciseMarkdown(raw, sourceName) {
     complexity,
     intensity,
     tags: tags.length ? tags : ["general"],
+    date: parsedDate.iso,
+    displayDate: parsedDate.display,
     players: Number.isFinite(players) ? players : 0,
     gks: Number.isFinite(gks) ? gks : 0,
     mediaType: String(meta.media_type || "").toLowerCase(),
@@ -697,6 +728,35 @@ function clampComplexity(value) {
     return null;
   }
   return Math.max(1, Math.min(10, n));
+}
+
+function parseExerciseDateFromSourceName(sourceName) {
+  const match = String(sourceName).match(/_(\d{2})(\d{2})(\d{2})(?=\.md$)/i);
+  if (!match) {
+    return {
+      iso: DEFAULT_EXERCISE_DATE_ISO,
+      display: formatIsoDateToDisplay(DEFAULT_EXERCISE_DATE_ISO),
+    };
+  }
+
+  const [, day, month, year] = match;
+  return {
+    iso: `20${year}-${month}-${day}`,
+    display: `${day}.${month}.${year}`,
+  };
+}
+
+function formatIsoDateToDisplay(isoDate) {
+  const match = String(isoDate).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    return "01.07.25";
+  }
+  const [, year, month, day] = match;
+  return `${day}.${month}.${year.slice(-2)}`;
+}
+
+function normalizeDateInput(value) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(value)) ? String(value) : "";
 }
 
 function toBoolean(value) {

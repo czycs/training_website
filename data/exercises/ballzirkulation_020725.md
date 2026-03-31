@@ -1,5 +1,5 @@
 ---
-title: Ballzirkulation zu 1v1
+title: Ballzirkulation mit 4x 1v1
 age_group: U19
 complexity: 4
 intensity: 5
@@ -20,8 +20,8 @@ media_url: ballzirkulation_020725.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
 - Verteidigen bis Ball im Tor (Ende)
+- Zweikämpfe führen
 
 
 

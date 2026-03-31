@@ -14,14 +14,15 @@ media_url: ballzirkulation_00003.mp4
 [ballzirkulation_00003.png]
 
 ## Ablauf
+Alle Grupen (rechts, mitte, links) gleichzeitig
 
 
 
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
-- Verteidigen bis Ball im Tor (Ende)
+- Tempoverschärfung bei Ballmitnahme
+- 1. Kontakt in Spielrichtung
 
 
 

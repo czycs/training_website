@@ -14,14 +14,12 @@ media_url: technik_140725.mp4
 [technik_140725.png]
 
 ## Ablauf
-
-
-
+Pässe mit unterschiedlichen Distanz scharf, aber sauber Spielen max. 3 Kontakte
 
 ## Coaching points
-- Höchstmögliches Tempo 
-- enge Ballführung 
-- Verteidigen bis Ball im Tor (Ende)
+- saubere Pässe
+- 1. Kontakt nicht tot stoppen
+- 1. Kontakt um Seite zu wechseln
 
 
 

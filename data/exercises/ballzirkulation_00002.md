@@ -20,8 +20,9 @@ media_url: ballzirkulation_00002.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
-- Verteidigen bis Ball im Tor (Ende)
+- saubere Passspiel
+- 1. Kontakt in SPielrichtung
+
 
 
 

@@ -19,7 +19,7 @@ media_url: torschuss_110725.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
+- 1. Konatk in Spielrichtung
 - Verteidigen bis Ball im Tor (Ende)
 
 

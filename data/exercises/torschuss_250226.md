@@ -14,12 +14,13 @@ media_url: 1v1_250226.mp4
 [1v1_250226.png]
 
 ## Ablauf
-
+1v1 5s shotclock
+Han
 
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
+- Handlungsschnelligkeit nach 1v1
 - Verteidigen bis Ball im Tor (Ende)
 
 

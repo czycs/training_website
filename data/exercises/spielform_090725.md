@@ -20,8 +20,9 @@ media_url: spielform_090725.mp4
 
 ## Coaching points
 - Höchstmögliches Tempo 
-- enge Ballführung 
 - Verteidigen bis Ball im Tor (Ende)
+- Zweikämpfe aktiv führen
+
 
 
 

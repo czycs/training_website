@@ -15,7 +15,7 @@ media_url: spielform_060326.mp4
 
 
 ## Ablauf
-
+nach dem das 1. 1v1 beendet ist *Co* spielt Ball in die Mitte in den freien Raum
 
 
 ## Coaching points
