@@ -1,5 +1,5 @@
 ---
-title: Ballzirkulation mit Spieleröffnung
+title: Ballzirkulation mit Torschuss
 age_group: U15
 complexity: 6
 intensity: 5
