@@ -7,11 +7,11 @@ players: 10
 gks: 10
 tags: Torschuss, doppelter 16er, Ballzirkulation
 media_type: image
-media_url: ballzirkulation_00005.mp4
+media_url: ballzirkulation_00004.mp4
 ---
 
 ## Setup
-[ballzirkulation_00005.png]
+[ballzirkulation_00004.png]
 
 ## Ablauf
 
