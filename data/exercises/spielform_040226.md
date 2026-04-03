@@ -5,7 +5,7 @@ complexity: 7
 intensity: 6
 players: 10
 gks: 2
-tags: 5v5 pielform, 4v4, doppelter 16er, Torschuss, Cut
+tags: 5v5, Spielform, 4v4, doppelter 16er, Torschuss, Cut
 media_type: image
 media_url: spielform_040226.mp4
 ---
