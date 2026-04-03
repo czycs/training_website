@@ -15,7 +15,7 @@ media_url: 1v1_250226.mp4
 
 ## Ablauf
 1v1 5s shotclock
-Han
+
 
 
 ## Coaching points
