@@ -5,13 +5,13 @@ complexity: 4
 intensity: 5
 players: 10
 gks: 2
-tags: 3v3, Torschuss, doppelter 16er, Flanken
+tags: 3v3, Torschuss, doppelter 16er, Flanken, Spielform
 media_type: image
-media_url: spielform_061117.mp4
+media_url: spielform_101017.mp4
 ---
 
 ## Setup
-[spielform_061117.png]
+[spielform_101017.png]
 
 
 ## Ablauf
