@@ -1,11 +1,11 @@
 ---
-title: Ballbesitzt + Spieleröffnung Fanso
+title: Ballbesitzt + Spieleröffnung Fonso
 age_group: H1
 complexity: 4
 intensity: 5
 players: 8
 gks: 2
-tags: Torschuss, Spielform, Überzahl, Fanso
+tags: Torschuss, Spielform, Überzahl, Fonso
 media_type: image
 media_url: spielform_010724.mp4
 ---
