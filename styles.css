@@ -488,8 +488,9 @@ input[type="number"] {
 
   .card-media {
     padding: 0;
-    min-height: clamp(15rem, 38svh, 24rem);
-    max-height: clamp(15rem, 38svh, 24rem);
+    margin: 0;
+    min-height: fit-content;
+    max-height: clamp(15rem, 38svh, 24rem); */
     align-items: start;
   }
 }

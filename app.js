@@ -385,9 +385,9 @@ function renderMedia(item, className) {
 
   if (item.mediaType === "video" || looksLikeVideo(item.mediaUrl)) {
     if (shouldAutoLoop) {
-      wrapper.innerHTML = `<video autoplay muted loop playsinline preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
+      wrapper.innerHTML = `<video autoplay loading="lazy" muted loop playsinline preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
     } else {
-      wrapper.innerHTML = `<video controls preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
+      wrapper.innerHTML = `<video controls loading="lazy" preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
     }
   } else {
     wrapper.innerHTML = `<img alt="${escapeAttr(item.title)}" src="${escapeAttr(item.mediaUrl)}" />`;
