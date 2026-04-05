@@ -292,6 +292,15 @@ input[type="number"] {
   align-self: start;
 }
 
+.card-video-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    linear-gradient(135deg, #d7e7d6, #b9d2bc);
+}
+
 .card-media img {
   height: 100%;
   min-height: 13rem;

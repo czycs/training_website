@@ -21,6 +21,8 @@ const state = {
   playersMax: null,
   gksMin: null,
   gksMax: null,
+  cardMediaObserver: null,
+  activeCardMediaSyncTimer: null,
 };
 
 const dom = {
@@ -207,6 +209,8 @@ function wireEvents() {
       closeModalAndClearUrl();
     }
   });
+  dom.exerciseGrid.addEventListener("scroll", scheduleActiveCardMediaSync, { passive: true });
+  window.addEventListener("resize", scheduleActiveCardMediaSync, { passive: true });
   window.addEventListener("hashchange", syncExerciseFromUrl);
 }
 
@@ -248,6 +252,7 @@ function render() {
   const filtered = state.exercises.filter(matchesFilters);
   dom.resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? "drill" : "drills"}`;
   renderCards(filtered);
+  setupVisibleCardMedia();
 }
 
 function renderCards(items) {
@@ -376,7 +381,8 @@ function scrollCardIntoView(slug) {
 function renderMedia(item, className) {
   const wrapper = document.createElement("div");
   wrapper.className = className;
-  const shouldAutoLoop = className === "card-media" && item.loopOnHome;
+  const isCardMedia = className === "card-media";
+  const shouldAutoLoop = isCardMedia && item.loopOnHome;
 
   if (!item.mediaUrl) {
     wrapper.innerHTML = `<img alt="placeholder field" src="${DEFAULT_VISUAL_PATH}" />`;
@@ -384,15 +390,225 @@ function renderMedia(item, className) {
   }
 
   if (item.mediaType === "video" || looksLikeVideo(item.mediaUrl)) {
-    if (shouldAutoLoop) {
-      wrapper.innerHTML = `<video autoplay loading="lazy" muted loop playsinline preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
+    if (isCardMedia) {
+      wrapper.dataset.lazyVideo = "true";
+      wrapper.dataset.videoSrc = item.mediaUrl;
+      wrapper.dataset.videoLoop = shouldAutoLoop ? "true" : "false";
+      wrapper.innerHTML = `<div class="card-video-placeholder" aria-hidden="true"></div>`;
     } else {
-      wrapper.innerHTML = `<video controls loading="lazy" preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
+      wrapper.innerHTML = `<video controls preload="metadata" src="${escapeAttr(item.mediaUrl)}"></video>`;
     }
   } else {
     wrapper.innerHTML = `<img alt="${escapeAttr(item.title)}" src="${escapeAttr(item.mediaUrl)}" />`;
   }
   return wrapper;
+}
+
+function setupVisibleCardMedia() {
+  if (state.cardMediaObserver) {
+    state.cardMediaObserver.disconnect();
+    state.cardMediaObserver = null;
+  }
+
+  const lazyWrappers = Array.from(dom.exerciseGrid.querySelectorAll(".card-media[data-lazy-video='true']"));
+  if (!lazyWrappers.length) {
+    return;
+  }
+
+  const root = getCardMediaObserverRoot();
+
+  state.cardMediaObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const wrapper = entry.target;
+        const card = wrapper.closest(".card");
+        const nearViewport = isElementNearViewport(wrapper, root, 260);
+        const fullyVisible = card ? isCardFullyVisible(card, root) : false;
+
+        if (nearViewport || entry.isIntersecting) {
+          mountCardVideo(wrapper);
+          if (fullyVisible) {
+            scheduleCardVideoAutoplay(wrapper);
+          } else {
+            clearCardVideoTimer(wrapper);
+            const video = wrapper.querySelector("video");
+            if (video) {
+              video.pause();
+            }
+          }
+        } else {
+          unmountCardVideo(wrapper);
+        }
+      });
+      pauseNonFullyVisibleCardVideos();
+    },
+    {
+      root,
+      rootMargin: "260px 0px 260px 0px",
+      threshold: [0, 0.01, 0.2, 0.6, 1],
+    }
+  );
+
+  lazyWrappers.forEach((wrapper) => {
+    unmountCardVideo(wrapper);
+    state.cardMediaObserver.observe(wrapper);
+    if (isElementNearViewport(wrapper, root, 260)) {
+      mountCardVideo(wrapper);
+    }
+    const card = wrapper.closest(".card");
+    if (card && isCardFullyVisible(card, root)) {
+      scheduleCardVideoAutoplay(wrapper);
+    }
+  });
+
+  scheduleActiveCardMediaSync();
+}
+
+function mountCardVideo(wrapper) {
+  if (wrapper.querySelector("video")) {
+    return;
+  }
+
+  const videoSrc = wrapper.dataset.videoSrc;
+  if (!videoSrc) {
+    return;
+  }
+
+  const video = document.createElement("video");
+  video.src = videoSrc;
+  video.preload = "metadata";
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+
+  wrapper.replaceChildren(video);
+}
+
+function unmountCardVideo(wrapper) {
+  clearCardVideoTimer(wrapper);
+  const video = wrapper.querySelector("video");
+  if (video) {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+  }
+
+  wrapper.innerHTML = `<div class="card-video-placeholder" aria-hidden="true"></div>`;
+}
+
+function clearCardVideoTimer(wrapper) {
+  if (wrapper._autoplayTimer) {
+    window.clearTimeout(wrapper._autoplayTimer);
+    wrapper._autoplayTimer = null;
+  }
+}
+
+function scheduleCardVideoAutoplay(wrapper) {
+  if (wrapper._autoplayTimer || !wrapper.querySelector("video")) {
+    return;
+  }
+
+  wrapper._autoplayTimer = window.setTimeout(() => {
+    const video = wrapper.querySelector("video");
+    if (!video) {
+      wrapper._autoplayTimer = null;
+      return;
+    }
+    pauseNonMatchingCardVideos(wrapper);
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+    wrapper._autoplayTimer = null;
+  }, 1);
+}
+
+function scheduleActiveCardMediaSync() {
+  if (state.activeCardMediaSyncTimer) {
+    window.clearTimeout(state.activeCardMediaSyncTimer);
+  }
+
+  state.activeCardMediaSyncTimer = window.setTimeout(() => {
+    state.activeCardMediaSyncTimer = null;
+    syncActiveCardMediaPlayback();
+  }, 120);
+}
+
+function syncActiveCardMediaPlayback() {
+  const root = getCardMediaObserverRoot();
+  let activeWrapper = null;
+
+  dom.exerciseGrid.querySelectorAll(".card-media[data-lazy-video='true']").forEach((wrapper) => {
+    const card = wrapper.closest(".card");
+    if (!card) {
+      return;
+    }
+
+    if (isElementNearViewport(wrapper, root, 260)) {
+      mountCardVideo(wrapper);
+    }
+
+    if (!activeWrapper && isCardFullyVisible(card, root)) {
+      activeWrapper = wrapper;
+    }
+  });
+
+  if (activeWrapper) {
+    pauseNonMatchingCardVideos(activeWrapper);
+    scheduleCardVideoAutoplay(activeWrapper);
+  } else {
+    pauseNonFullyVisibleCardVideos();
+  }
+}
+
+function pauseNonFullyVisibleCardVideos() {
+  const root = getCardMediaObserverRoot();
+  dom.exerciseGrid.querySelectorAll(".card-media[data-lazy-video='true']").forEach((wrapper) => {
+    const card = wrapper.closest(".card");
+    if (card && isCardFullyVisible(card, root)) {
+      return;
+    }
+    clearCardVideoTimer(wrapper);
+    const video = wrapper.querySelector("video");
+    if (video) {
+      video.pause();
+    }
+  });
+}
+
+function pauseNonMatchingCardVideos(activeWrapper) {
+  dom.exerciseGrid.querySelectorAll(".card-media[data-lazy-video='true']").forEach((wrapper) => {
+    if (wrapper === activeWrapper) {
+      return;
+    }
+    clearCardVideoTimer(wrapper);
+    const video = wrapper.querySelector("video");
+    if (video) {
+      video.pause();
+    }
+  });
+}
+
+function isCardFullyVisible(element, root) {
+  const rect = element.getBoundingClientRect();
+  if (root instanceof Element) {
+    const rootRect = root.getBoundingClientRect();
+    return rect.top >= rootRect.top && rect.bottom <= rootRect.bottom;
+  }
+  return rect.top >= 0 && rect.bottom <= window.innerHeight;
+}
+
+function getCardMediaObserverRoot() {
+  return window.matchMedia("(max-width: 940px)").matches ? dom.exerciseGrid : null;
+}
+
+function isElementNearViewport(element, root, margin = 200) {
+  const rect = element.getBoundingClientRect();
+  if (root instanceof Element) {
+    const rootRect = root.getBoundingClientRect();
+    return rect.bottom >= rootRect.top - margin && rect.top <= rootRect.bottom + margin;
+  }
+  return rect.bottom >= -margin && rect.top <= window.innerHeight + margin;
 }
 
 function matchesFilters(item) {
