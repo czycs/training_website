@@ -1,5 +1,5 @@
 ---
-title: Ballbesitzt + Spieleröffnung Fonso
+title: Ballbesitz + Spieleröffnung Fonso
 age_group: H1
 complexity: 4
 intensity: 5
